@@ -1,0 +1,162 @@
+
+
+O processo é o seguinte: 
+Voce deixa a VM rodando e entra nela por SSH com a sua maquina e roda as coisas nela
+
+Se quiser relembrar: https://mininet.org/walkthrough/
+
+IP da maquina: 192.168.56.101
+Nome da maquina: mininet-vm
+
+add em /etc/hosts -> 192.168.56.101 mininet-vm
+
+
+=-=-=-=-- IP pra eth0 e eth1:
+sudo dhclient eth1   # make sure that eth1 has an IP address
+ifconfig eth1
+
+
+
+conectar via ssh na vm: 
+
+ssh -Y mininet@mininet-vm -> sshmin
+
+=-=-=-=-= Pra adicionar uma nova topoplogia
+
+When a custom mininet file is provided, it can add new topologies, switch types, and tests to the command-line. For example:
+
+ sudo mn --custom path_to_py_file --topo topo_name --test pingall
+ sudo mn --custom topo-2sw-2host.py --topo mytopo --test pingall
+ 
+ 
+ The --mac option is super-useful, and sets the host MAC and IP addrs to small, unique, easy-to-read IDs.
+ 
+ sudo mn --mac
+ 
+ sudo mn -c -> para o mininet e limpa os arquivos intermediarios
+ 
+ 
+ 
+ =-=-=-=- Link up and down: 
+Link Up/Down
+For fault tolerance testing, it can be helpful to bring links up and down.
+
+To disable both halves of a virtual ethernet pair:
+
+mininet> link s1 h1 down
+You should see an OpenFlow Port Status Change notification get generated. To bring the link back up:
+
+mininet> link s1 h1 up
+
+=-=-==- Instalando o Redis 
+python3.6 -m pip install redis
+
+=-=-=-=- Instalando pip3:
+https://stackoverflow.com/questions/48014769/pip3-command-not-found
+sudo apt-get --purge autoremove python3-pip
+sudo apt install python3-pip
+
+-=-=-=-=-=- Walkthrough install Ryu
+
+Ryu
+Ryu is a basic OpenFlow controller framework written in Python. It is supported out of the box in Mininet:
+
+$ sudo pip3 install ryu  # install ryu if it's not already installed
+$ sudo mn --controller ryu
+This will run ryu.app.simple_switch.
+
+You can also specify the Ryu application on the mn command line:
+
+$ sudo mn --controller,ryu.app.simple_switch_13
+You can also run Ryu as a remote controller.
+
+In one window:
+
+$ ryu run ryu.app.simple_switch
+Then in another window:
+
+$ sudo mn --controller remote
+
+
+
+
+=-=-=-=- Usanod o controlador remoto:
+$ sudo mn --controller=remote,ip=[controller IP],port=[controller listening port]
+
+By default, --controller=remote will use 127.0.0.1 and will try ports 6653 and 6633.
+
+=-=-=-=- Instalar GUI na VM:
+sudo apt-get update && sudo apt-get install xinit lxde virtualbox-guest-x11
+
+
+=-=-=- Start network do tutorial: 
+
+mininet>  is for Mininet console,  
+$  is for SSH terminal (normal user) 
+#  is for SSH terminal (root user)
+
+https://github.com/mininet/openflow-tutorial/wiki/Learn-Development-Tools
+
+sudo mn --topo single,3 --mac --switch ovsk --controller remote
+
+
+
+
+
+
+=-=-=- Comandos Mininet
+nodes
+help 
+Pra eu rodar um comando em específico, rodo o comenando com o nome do host na frente:
+<host_nb> ifconfig. EX: h1 ifconfing
+iperf -> mede a velocidade da conecao
+
+posso usar xterm pra um ou mais nodes:
+ mininet> xterm h1 h2
+
+sudo ovs-ofctl show s1 - ovs-ofctl is a utility that comes with Open vSwitch and enables visibility and control over a single switch's flow table.
+
+sudo ovs-ofctl dump-flows s1 -> pode ser util por soltar the flow-table 
+
+
+PAREI AQUI: https://github.com/mininet/openflow-tutorial/wiki/Learn-Development-Tools#accessing-remote-ovs-instances-or-the-stanford-reference-switch
+Comando pra voltar a rodar mininet: sudo mn --topo single,3 --mac --switch ovsk
+
+
+=-=-=-=-=-=-=-=-=- Se o wireshark der problema: 
+export XAUTHORITY=$HOME/.Xauthority
+
+
+!!!!!!!!!!!!!!! A porta do tutorial está errada tbm!6653 é a padrão
+!!!!!!!!!!!!!!! Pra pegar o wireshark, deve-se usar o ssh -X 
+-> Eu usei o -X em tudo tbm
+
+
+Use openflow_v1 ao invez de só openflow
+
+
+
+=-=-=-=-=-=-  Creating a Learning Switch 
+https://github.com/mininet/openflow-tutorial/wiki/Create-a-Learning-Switch
+
+
+=-==- Comandos enviar rodolfo:
+time sudo apt-get install python-eventlet python-routes python-webob python-paramiko
+
+git clone https://github.com/faucetsdn/ryu.git
+
+
+ PYTHONPATH=. ./bin/ryu-manager ryu/app/simple_switch.py
+
+
+
+
+
+
+
+
+
+
+
+
+
