@@ -58,7 +58,7 @@ sudo apt install python3-pip
 
 -=-=-=-=-=- Walkthrough install Ryu
 
-Ryu
+Ryu -> https://mininet.org/walkthrough/#python-interpreter
 Ryu is a basic OpenFlow controller framework written in Python. It is supported out of the box in Mininet:
 
 $ sudo pip3 install ryu  # install ryu if it's not already installed
@@ -149,7 +149,7 @@ git clone https://github.com/faucetsdn/ryu.git
  PYTHONPATH=. ./bin/ryu-manager ryu/app/simple_switch.py
 
 
-
+sudo mn --controller=remote,ip='127.0.0.1',port=6633
 
 
 
