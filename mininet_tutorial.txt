@@ -145,7 +145,6 @@ time sudo apt-get install python-eventlet python-routes python-webob python-para
 
 git clone https://github.com/faucetsdn/ryu.git
 
-
  PYTHONPATH=. ./bin/ryu-manager ryu/app/simple_switch.py
 
 
