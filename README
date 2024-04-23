@@ -1,9 +1,8 @@
-pra rodar a topologia: 
-  sudo python3 topologia_incial.py
-
 Passo 1: Execute o controlador Ryu
   ryu-manager SRController_2.py
-Passo 2: Execute a topologia Mininet
-  sudo python3 InitialTopology.py
-Passo 3: Execute os testes na topologia Mininet
+Passo 2: Execute os testes na topologia Mininet
   sudo python3 ColectResults.py
+
+
+ Execute a topologia Mininet
+  sudo python3 InitialTopology.py
