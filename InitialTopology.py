@@ -19,18 +19,15 @@ def create_topology():
     hosts = []
     for i in range(1, 9):
         host = net.addHost(f'h{i}')
-        hosts.append(host)
-        
-        
-    # Switch 1: Conecta no 2 e 3
-    # Switch 3: Conecta no 4
-    
+        hosts.append(host)    
     
     # Switch1:              Switch2:
-    #   Host 1 e 2            Host 7 e 8
+    #   Host 1 e 2            Host 3 e 4
     # Switch3:               Switch4:
-    #    Host 4 e 5          Host 7 e 8
+    #    Host 5 e 6          Host 7 e 8
 
+    # Switch 1: Conecta no 2 e 3
+    # Switch 3: Conecta no 4
     # Conectando switches e hosts
     for i, switch in enumerate(switches):
         net.addLink(switch, hosts[2*(i+1)-1])
@@ -41,14 +38,14 @@ def create_topology():
     net.addLink(switches[1],switches[2])
     net.addLink(switches[2],switches[3])
     
-        # if i == 0:
-        #     net.addLink(switch, hosts[0])
-        #     net.addLink(switch, hosts[1])
-        # elif i == 4:
-        #     net.addLink(switch, hosts[2])
-        #     net.addLink(switch, hosts[3])
-        # else:
-        #     net.addLink(switch, hosts[i])
+      # if i == 0:
+      #     net.addLink(switch, hosts[0])
+      #     net.addLink(switch, hosts[1])
+      # elif i == 4:
+      #     net.addLink(switch, hosts[2])
+      #     net.addLink(switch, hosts[3])
+      # else:
+      #     net.addLink(switch, hosts[i])
 
   
     # Construindo a rede

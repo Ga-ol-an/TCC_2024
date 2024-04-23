@@ -41,7 +41,7 @@ When a custom mininet file is provided, it can add new topologies, switch types,
 Link Up/Down
 For fault tolerance testing, it can be helpful to bring links up and down.
 
-To disable both halves of a virtual ethernet pair:
+#!!!!!!!!!!! To disable both halves of a virtual ethernet pair:
 
 mininet> link s1 h1 down
 You should see an OpenFlow Port Status Change notification get generated. To bring the link back up:
@@ -151,7 +151,10 @@ git clone https://github.com/faucetsdn/ryu.git
 
 sudo mn --controller=remote,ip='127.0.0.1',port=6633
 
-
+-=-=-=
+Iperf é usado para testar o trafego
+ h4 iperf -s & -> cria o server em h4
+ h1 iperf -c h4 -> cria o client em h1 e conecta em h4
 
 
 
