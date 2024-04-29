@@ -30,8 +30,10 @@ class SRTestTopo( Topo ):
 
 def run_SRTest():
     topo = SRTestTopo()
-    net = Mininet( topo=topo, controller=RemoteController, switch=OVSSwitch )
-    net.addController( 'c0', controller=RemoteController, ip='127.0.0.1', port=6633 )
+    net = Mininet( topo=topo, \
+      #controller=RemoteController,
+      switch=OVSSwitch )
+    # net.addController( 'c0', controller=RemoteController, ip='127.0.0.1', port=6633 )
     net.start()
 
     h1, h2, h3, h4 = net.get( 'h1', 'h2', 'h3', 'h4' )
@@ -41,9 +43,9 @@ def run_SRTest():
 
     print("Testing bandwidth between h1 and h2 (h3 and h4) with iperf")
     h2.sendCmd( 'iperf -s -u -i 1 > iperf_server_h2.log &' )
-    h1.sendCmd( 'iperf -c %s -t 20 -i 1 > iperf_client_h1.log &' % h2.IP() )
+    h1.sendCmd( 'iperf -c %s -t 200 -i 1 > iperf_client_h1.log &' % h2.IP() )
     h4.sendCmd( 'iperf -s -u -i 1 > iperf_server_h4.log &' )
-    h3.sendCmd( 'iperf -c %s -t 20 -i 1 > iperf_client_h3.log &' % h4.IP() )
+    h3.sendCmd( 'iperf -c %s -t 200 -i 1 > iperf_client_h3.log &' % h4.IP() )
 
     CLI( net )
     net.stop()
