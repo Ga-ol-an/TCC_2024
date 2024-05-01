@@ -14,11 +14,14 @@ def simpleTopology():
     h1 = net.addHost('h1')
     h2 = net.addHost('h2')
     h3 = net.addHost('h3')
+    h4 = net.addHost('h4')
+    
 
     # Criando links
     net.addLink(h1, s1)
     net.addLink(h2, s1)
     net.addLink(h3, s1)
+    net.addLink(h4, s1)
 
     # Iniciando a rede
     net.start()

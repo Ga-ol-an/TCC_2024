@@ -1,5 +1,3 @@
-# Essa é o app puro do ryu
-
 from ryu.base import app_manager
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
@@ -24,10 +22,117 @@ class SimpleSwitch13(app_manager.RyuApp):
         datapath = ev.msg.datapath
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
-
-        #! Aqui chega
+        ##########################
+        #! Adicionei abaixo daqui 
+        ##########################
         print('parece que começou')
         
+        ## Acho que deu bom?????
+      
+        queue =  [
+                {
+                    "OFPPacketQueue": {
+                      "len": 48, 
+                      "port": 6000, 
+                      "properties": [
+                          {
+                            "OFPQueuePropMinRate": {
+                                "len": 16, 
+                                "property": 1, 
+                                "rate": 1
+                            }
+                          }, 
+                          {
+                            "OFPQueuePropMaxRate": {
+                                "len": 16, 
+                                "property": 2, 
+                                "rate": 500
+                            }
+                          }
+                      ], 
+                      "queue_id": 99
+                    }
+                }, 
+                {
+                    "OFPPacketQueue": {
+                      "len": 48, 
+                      "port": 6001, 
+                      "properties": [
+                          {
+                            "OFPQueuePropMinRate": {
+                                "len": 16, 
+                                "property": 1, 
+                                "rate": 100
+                            }
+                          }, 
+                          {
+                            "OFPQueuePropMaxRate": {
+                                "len": 16, 
+                                "property": 2, 
+                                "rate": 1000
+                            }
+                          }
+                      ], 
+                      "queue_id": 88
+                    }
+                },
+                {
+                    "OFPPacketQueue": {
+                      "len": 48, 
+                      "port": 6002, 
+                      "properties": [
+                          {
+                            "OFPQueuePropMinRate": {
+                                "len": 16, 
+                                "property": 1, 
+                                "rate": 200
+                            }
+                          }, 
+                          {
+                            "OFPQueuePropMaxRate": {
+                                "len": 16, 
+                                "property": 2, 
+                                "rate": 2000
+                            }
+                          }], 
+                      "queue_id": 77
+                    }
+                },
+                {
+                    "OFPPacketQueue": {
+                      "len": 48, 
+                      "port": 6003, 
+                      "properties": [
+                          {
+                            "OFPQueuePropMinRate": {
+                                "len": 16, 
+                                "property": 1, 
+                                "rate": 200
+                            }
+                          }, 
+                          {
+                            "OFPQueuePropMaxRate": {
+                                "len": 16, 
+                                "property": 2, 
+                                "rate": 3000
+                            }
+                          }], 
+                      "queue_id": 78
+                    }
+                }
+              ]
+        
+        #! Adicionei isso aqui tbm
+        # print(parser.OFPQueueGetConfigReply(datapath, port=4294967295, queues=queue))
+        #! FAzer os seguintes testes amanha:
+        # Ver se esse config que eu criei realmente funciona, testando com o iperf a largura de banda na porta
+        # ver se adiciono ele em outro local (pra um codigo mais limpo)
+        print(parser.OFPPort)
+        
+        ##########################
+        #! Adicionei acima daqui
+        ##########################
+         
         # install table-miss flow entry
         #
         # We specify NO BUFFER to max_len of the output action due to
@@ -39,11 +144,20 @@ class SimpleSwitch13(app_manager.RyuApp):
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
         self.add_flow(datapath, 0, match, actions)
-        print(parser.OFPFlowStatsRequest(datapath))
+        # print(parser.OFPFlowStatsRequest(datapath))
 
     ##########################
     # Adicionei aqui 
    ##########################
+   
+   
+    def send_queue_get_config_request(self, datapath):
+      ofp = datapath.ofproto
+      ofp_parser = datapath.ofproto_parser
+
+      req = ofp_parser.OFPQueueGetConfigRequest(datapath, ofp.OFPP_ANY)
+      datapath.send_msg(req)
+   
   
     @set_ev_cls(ofp_event.EventOFPDescStatsReply, MAIN_DISPATCHER)
     def desc_stats_reply_handler(self, ev):
@@ -65,8 +179,11 @@ class SimpleSwitch13(app_manager.RyuApp):
       req = ofp_parser.OFPPortStatsRequest(datapath, 0, ofp.OFPP_ANY)
       datapath.send_msg(req)
 
+    ##########################
     #! Ver como usar isso:
-    #* Dǘuida: pra que eu consiga mudar a minha porta, que função eu devo pegar?
+    ##########################
+    #* Dúvida: pra que eu consiga mudar a minha porta, que função eu devo pegar (SET ou GET)?
+    
     #parser.OFPQueueGetConfigRequest(datapath, port)
     #ofp.parser.OFPQueueGetConfigReply -> classryu.ofproto.ofproto_v1_3_parser.OFPQueueGetConfigReply(datapath, queues=None, port=None)
     #ofp_parser.OFPPort -> https://ryu.readthedocs.io/en/latest/ofproto_v1_3_ref.html#ryu.ofproto.ofproto_v1_3_parser.OFPPort
@@ -144,115 +261,5 @@ class SimpleSwitch13(app_manager.RyuApp):
                                   in_port=in_port, actions=actions, data=data)
         datapath.send_msg(out)
         
-        ## Acho que deu bom?????
-      
-        queue =  [
-                {
-                    "OFPPacketQueue": {
-                      "len": 64, 
-                      "port": 77, 
-                      "properties": [
-                          {
-                            "OFPQueuePropMinRate": {
-                                "len": 16, 
-                                "property": 1, 
-                                "rate": 10
-                            }
-                          }, 
-                          {
-                            "OFPQueuePropMaxRate": {
-                                "len": 16, 
-                                "property": 2, 
-                                "rate": 900
-                            }
-                          },
-                          {
-                            "OFPQueuePropExperimenter": {
-                                "data": [], 
-                                "experimenter": 999, 
-                                "len": 16, 
-                                "property": 65535
-                            }
-                          }
-                      ], 
-                      "queue_id": 99
-                    }
-                }, 
-                {
-                    "OFPPacketQueue": {
-                      "len": 65, 
-                      "port": 77, 
-                      "properties": [
-                          {
-                            "OFPQueuePropMinRate": {
-                                "len": 16, 
-                                "property": 1, 
-                                "rate": 100
-                            }
-                          }, 
-                          {
-                            "OFPQueuePropMaxRate": {
-                                "len": 16, 
-                                "property": 2, 
-                                "rate": 200
-                            }
-                          },
-                          {
-                            "OFPQueuePropExperimenter": {
-                                "experimenter": 999, 
-                                "data": [
-                                  1
-                                ], 
-                                "len": 17, 
-                                "property": 65535
-                            }
-                          }
-                      ], 
-                      "queue_id": 88
-                    }
-                },
-                {
-                    "OFPPacketQueue": {
-                      "len": 66, 
-                      "port": 77, 
-                      "properties": [
-                          {
-                            "OFPQueuePropMinRate": {
-                                "len": 16, 
-                                "property": 1, 
-                                "rate": 200
-                            }
-                          }, 
-                          {
-                            "OFPQueuePropMaxRate": {
-                                "len": 16, 
-                                "property": 2, 
-                                "rate": 400
-                            }
-                          },
-                          {
-                            "OFPQueuePropExperimenter": {
-                                "experimenter": 999, 
-                                "data": [
-                                  1, 
-                                  2
-                                ], 
-                                "len": 18, 
-                                "property": 65535
-                            }
-                          }
-                      ], 
-                      "queue_id": 77
-                    }
-                }
-              ]
-        
-        #! Adicionei isso aqui tbm
-        print(parser.OFPQueueGetConfigReply(datapath, port=4294967295, queues=queue))
-        #! FAzer os seguintes testes amanha:
-        # VEr se esse config que eu criei realmente funciona, testando com o iperf a largura de banda na porta
-        # ver se adiciono ele em outro local (pra um codigo mais limpo)
-        print(parser.OFPPort)
-        
-        
+
         

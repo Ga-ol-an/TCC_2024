@@ -1,0 +1,12 @@
+# -s -> server
+# -t -> time
+# -p -> port
+# -c _host_name_ -> client _ip_
+# -b -> bandwidht
+# -p -> port
+
+h1 iperf --server --port 6000-6003 --enhanced --interval 1 --time 10 & 
+
+h2 iperf --client h1 --port 6000 --bandwidth 10M --enhanced
+h3 iperf --client h1 --port 6001 --bandwidth 10M --enhanced
+h4 iperf --client h1 --port 6002 --bandwidth 10M --enhanced

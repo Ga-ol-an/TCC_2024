@@ -1,4 +1,4 @@
-queues=([
+queues=[
   {
     "OFPPacketQueue":{
       "len":64,
@@ -99,4 +99,4 @@ queues=([
       "queue_id":77
     }
   }
-])
+]
