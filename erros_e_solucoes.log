@@ -1,0 +1,2 @@
+erro: ImportError: cannot import name 'ALREADY_HANDLED' from 'eventlet.wsgi'
+solucao: pip install eventlet==0.30.2

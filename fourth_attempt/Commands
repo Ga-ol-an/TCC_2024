@@ -1,22 +1,13 @@
-Create a python venv: 
+-=-=-=- Clone the RYU repo used on this totorial:
+
+  git clone https://github.com/faucetsdn/ryu.git
+
+-=-=-=- Create a python venv: 
+
+  virtualenv --python=python3 test_python
+  cd test_python
+  source bin/activate
 
 
-virtualenv --python=python3 test_python
-cd test_python
-source bin/activate
+=-=-=-=- Start the tutorial 
 
-
-
-=-=-=-=-
-sudo mn --mac --switch ovsk --controller remote -x
-
-# Also, start another xterm for the controller.
-
-  mininet> 
-  
-    xterm c0
-
-    s1 ovs-vsctl set Bridge s1 protocols=OpenFlow13
-    s1 ovs-vsctl set-manager ptcp:6632
-
-sed '/OFPFlowMod(/,/)/s/)/, table_id=1)/' simple_switch_13.py > qos_simple_switch_13.py

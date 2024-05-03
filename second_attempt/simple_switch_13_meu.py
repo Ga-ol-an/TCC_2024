@@ -183,7 +183,86 @@ class SimpleSwitch13(app_manager.RyuApp):
     #! Ver como usar isso:
     ##########################
     #* Dúvida: pra que eu consiga mudar a minha porta, que função eu devo pegar (SET ou GET)?
-    
+
+    """ def set_queue(self, rest, vlan_id):
+        if self.ovs_bridge is None:
+            msg = {'result': 'failure',
+                   'details': 'ovs_bridge is not exists'}
+            return REST_COMMAND_RESULT, msg
+
+        port_name = rest.get(REST_PORT_NAME, None)
+        vif_ports = self.ovs_bridge.get_port_name_list()
+
+        if port_name is not None:
+            if port_name not in vif_ports:
+                raise ValueError('%s port is not exists' % port_name)
+            vif_ports = [port_name]
+
+        queue_list = {}
+        queue_type = rest.get(REST_QUEUE_TYPE, 'linux-htb')
+        parent_max_rate = rest.get(REST_QUEUE_MAX_RATE, None)
+        queues = rest.get(REST_QUEUES, [])
+        queue_id = 0
+        queue_config = []
+        for queue in queues:
+            max_rate = queue.get(REST_QUEUE_MAX_RATE, None)
+            min_rate = queue.get(REST_QUEUE_MIN_RATE, None)
+            if max_rate is None and min_rate is None:
+                raise ValueError('Required to specify max_rate or min_rate')
+            config = {}
+            if max_rate is not None:
+                config['max-rate'] = max_rate
+            if min_rate is not None:
+                config['min-rate'] = min_rate
+            if len(config):
+                queue_config.append(config)
+            queue_list[queue_id] = {'config': config}
+            queue_id += 1
+
+        for port_name in vif_ports:
+            try:
+                self.ovs_bridge.set_qos(port_name, type=queue_type,
+                                        max_rate=parent_max_rate,
+                                        queues=queue_config)
+            except Exception as msg:
+                raise ValueError(msg)
+            self.queue_list[port_name] = queue_list
+
+        msg = {'result': 'success',
+               'details': queue_list}
+
+        return REST_COMMAND_RESULT, msg"""
+
+      
+      
+      """ do arq rest_qos   
+      def set_qos(self, port_name, type='linux-htb', max_rate=None, queues=None):
+        
+        Sets a Qos rule and creates Queues on the given port.
+        
+        queues = queues if queues else []
+        command_qos = ovs_vsctl.VSCtlCommand(
+            'set-qos',
+            [port_name, type, max_rate])
+        command_queue = ovs_vsctl.VSCtlCommand(
+            'set-queue',
+            [port_name, queues])
+        self.run_command([command_qos, command_queue])
+        if command_qos.result and command_queue.result:
+            return command_qos.result + command_queue.result
+        return None 
+        
+      def del_qos(self, port_name):
+        
+        Deletes the Qos rule on the given port.
+        
+        command = ovs_vsctl.VSCtlCommand(
+            'del-qos',
+            [port_name])
+        self.run_command([command])
+        """
+
+    # self.ovs_bridge.get_port_name_list()
     #parser.OFPQueueGetConfigRequest(datapath, port)
     #ofp.parser.OFPQueueGetConfigReply -> classryu.ofproto.ofproto_v1_3_parser.OFPQueueGetConfigReply(datapath, queues=None, port=None)
     #ofp_parser.OFPPort -> https://ryu.readthedocs.io/en/latest/ofproto_v1_3_ref.html#ryu.ofproto.ofproto_v1_3_parser.OFPPort
