@@ -11,3 +11,82 @@
 
 =-=-=-=- Start the tutorial 
 
+	
+  sudo mn --controller remote,ip=127.0.0.1 -x  --switch ovsk,protocols=OpenFlow13 --mac --ipbase=10.1.1.0/24 --topo single,4 
+
+  s1 ovs-vsctl set-manager ptcp:6632
+
+
+
+
+  # Vou cotinuar no xterm
+
+  ## Eu posso rodar os comandos abaixo sem estar em um terminal do controlador. O meu próprio terminal já serve
+  ## E o app de REST tbm
+
+
+  # Adiciona o endereço do switch na app
+    xterm curl -X PUT -d '"tcp:127.0.0.1:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_add
+
+   
+
+    curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "tp_dst": "5002"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
+    curl -X POST -d '{"match": {"nw_dst": "10.0.0.2", "nw_proto": "UDP", "tp_dst": "5002"}, "actions":{"queue": "0"}}' http://localhost:8080/qos/rules/0000000000000001
+
+
+=-=- Otimizando: 
+
+
+Inicia tudo:
+  sudo mn --controller remote,ip=127.0.0.1 -x  --switch ovsk,protocols=OpenFlow13 --mac --ipbase=10.0.0.0/24 --topo single,4 
+
+Roda aquele esquema do xterm com um comando adicionado: 
+    controller c0  -> ryu-manager ryu.app.rest_qos ryu.app.qos_simple_switch_13 ryu.app.rest_conf_switch:
+    ou
+    ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch  : em um novo terminal
+
+  -- o ACIMA VAI SÓ FICAR MONITORIANDO OS REST
+
+# Configurando a Queue
+Em um novo terminal: ( não precisa ser do controller)
+  
+    # Adiciona o endereço do switch na app
+    xterm curl -X PUT -d '"tcp:127.0.0.1:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_add
+
+    # adiciona a queue
+    curl -X POST -d '{"port_name": "s1-eth1", "type": "linux-htb", "max_rate": "1000000", "queues": [{"max_rate": "500000"}, {"min_rate": "800000"}, "{max_rate": "100000"}]}' http://localhost:8080/qos/queue/0000000000000001
+    
+# Configurando o QoS
+No mesmo ou em novo terminal: ( não precisa ser do controller) 
+
+  curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "tp_dst": "5002"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
+
+# (Opcioanl) Verificar as coisas
+  curl -X GET http://localhost:8080/qos/rules/0000000000000001
+
+# Adicionar os comandos iperf em cada host e fazer as conexões apripriadas
+usar o xterm -e (ou algo equivalente) e redirecionar a saida para arquviso
+
+
+h4 (server):
+
+h4 iperf -s -u -i 1 -p 5001 > outputs/h4_server_h1 &
+h4 iperf -s -u -i 1 -p 5002 > outputs/h4_server_h2 &
+h4 iperf -s -u -i 1 -p 5003 > outputs/h4_server_h3 &
+
+h1 to h3 (clients):
+
+h1 iperf -c 10.1.1.4 -p 5001 -u -b 1M &
+h2 iperf -c 10.1.1.4 -p 5002 -u -b 1M &
+h3 iperf -c 10.1.1.4 -p 5003 -u -b 1M &
+
+
+
+TODO: 
+  Configurar tudo;
+  Fazer as queries de QoS usando os Apps;
+  Testar os QoS's usando o Iperf e redirecionar as saídas;
+  Tentar fazer um bash script pro inicial (antes do mininet);
+  Tentar usar o prompt do mininet pra iniciar outros servers;
+    
+    * Lembrar de mudar as portas do Switch (eth1-s1, etc)

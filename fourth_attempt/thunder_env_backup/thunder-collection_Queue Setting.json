@@ -1,0 +1,64 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Queue Setting",
+    "collectionId": "376bdb0e-f700-4dbe-b2c7-7588bbc1610b",
+    "dateExported": "2024-05-15T01:41:12.787Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "e1da21a1-8733-4214-85d7-8537cb1ec6eb",
+            "colId": "376bdb0e-f700-4dbe-b2c7-7588bbc1610b",
+            "containerId": "",
+            "name": "Add queue",
+            "url": "http://localhost:8080/qos/queue/0000000000000001",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-14T19:15:15.066Z",
+            "modified": "2024-05-15T00:39:14.972Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"port_name\": \"s1-eth1\", //opc\n  \"type\": \"linux-htb\",\n  \"max_rate\": \"1000000\",\n  \"queues\": [\n    {\n      \"max_rate\": \"10000\",\n      \"min_rate\": \"2000\"\n    }\n  ]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b35bcbb1-8315-4fb1-8ca2-5e80ea061267",
+            "colId": "376bdb0e-f700-4dbe-b2c7-7588bbc1610b",
+            "containerId": "",
+            "name": "Get Queues",
+            "url": "http://localhost:8080/qos/queue/0000000000000001",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-14T21:31:00.070Z",
+            "modified": "2024-05-14T21:31:42.333Z",
+            "headers": []
+        },
+        {
+            "_id": "a3fe0503-e8d2-4d7a-ae5c-143a34fa8a3d",
+            "colId": "376bdb0e-f700-4dbe-b2c7-7588bbc1610b",
+            "containerId": "",
+            "name": "Get Queue Status",
+            "url": "http://localhost:8080/qos/queue/status/0000000000000001",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-14T22:20:12.283Z",
+            "modified": "2024-05-14T22:21:51.007Z",
+            "headers": []
+        },
+        {
+            "_id": "cb226e0a-29f9-4843-8ffb-bfc6fbb002e2",
+            "colId": "376bdb0e-f700-4dbe-b2c7-7588bbc1610b",
+            "containerId": "",
+            "name": "Delete Queues",
+            "url": "http://localhost:8080/qos/queue/0000000000000001",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-05-14T22:35:26.336Z",
+            "modified": "2024-05-14T22:37:59.835Z",
+            "headers": []
+        }
+    ],
+    "ref": "xyxuCNkAbga-hkf2ExjvDtu_ckNqRYSEzXjpYH0uXwcoHBmP8CfmImfmTF4--pH8C5ncV_NjlPLcNLXqEQ1H2g"
+}
