@@ -1,0 +1,28 @@
+Sem QoS:
+  Se eu NÃO coloco as imperfeições no Link:
+    Eu limito o envio pela Queue. Percebo que cada linha tem o limite de 5MB.
+      Se eu envio as 3 juntas, cada uma envia somente 1.5 mb (mesmo a divisão exata sendo 3.3)
+
+      Ao que tudo indica, o envio máximo se torna 5mb
+
+    Se eu não crio a Queue, o envio no link é infinito, logo, envio 10MB em cada linha
+
+  Se eu coloco as imperfeições no Link:
+    A rede fica brigando entre si e extremamente instável, cada hora mandando mais banda pra uma conexão
+      ou
+    Somente um fica com grande parte da banda pra si e os outros dois ficam sem nada
+
+
+Com QoS:
+  Se eu NÃO coloco as imperfeições no Link:
+    A taxa da Queue adicionada na porta funciona como um limite de banda e tudo fica lindo
+
+  Se eu coloco as imperfeições no Link:
+    O QoS simplesmente não funciona
+
+
+Dúvidas:
+  Devo usar os parâmetros do próprio Iperf pra adicionar a perda, latencia, jitter e BW?
+  Como é uma boa maneira de simular uma rede de 10MB? Coloco todos links entre Hx -S1- H4 com BW de 10mb? Ou só S1-H4?
+  Como faço pra limitar a banda de um link? (QoS não funcionou)
+  OS resultados que tive até agora são os esperados?

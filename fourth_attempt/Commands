@@ -43,20 +43,28 @@ Inicia tudo:
 Roda aquele esquema do xterm com um comando adicionado: 
     controller c0  -> ryu-manager ryu.app.rest_qos ryu.app.qos_simple_switch_13 ryu.app.rest_conf_switch:
     ou
-    ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch  : em um novo terminal
+    # em um novo terminal
+    ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch 
 
   -- o ACIMA VAI SÓ FICAR MONITORIANDO OS REST
 
-# Configurando a Queue
+#Configura o Switch: 
+  ovs-vsctl set-manager ptcp:6632
+  #! Talvez dê pra usar o xterm -e no comando abaixo, já que no caso do de cima, dá certo
+    s1 xterm -e "ovs-vsctl set Bridge s1 protocols=OpenFlow13"
+    xterm s1 -e "ovs-vsctl set Bridge s1 protocols=OpenFlow13"
+  ovs-vsctl set Bridge s1 protocols=OpenFlow13 
+  
+# Configurando a Queue #! Por algum motivo, só funciona via terminal
 Em um novo terminal: ( não precisa ser do controller)
   
     # Adiciona o endereço do switch na app
-    xterm curl -X PUT -d '"tcp:127.0.0.1:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_add
+    curl -X PUT -d '"tcp:127.0.0.1:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
 
     # adiciona a queue
     curl -X POST -d '{"port_name": "s1-eth1", "type": "linux-htb", "max_rate": "1000000", "queues": [{"max_rate": "500000"}, {"min_rate": "800000"}, "{max_rate": "100000"}]}' http://localhost:8080/qos/queue/0000000000000001
     
-# Configurando o QoS
+# Configurando o QoS 
 No mesmo ou em novo terminal: ( não precisa ser do controller) 
 
   curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "tp_dst": "5002"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
@@ -76,17 +84,20 @@ h4 iperf -s -u -i 1 -p 5003 > outputs/h4_server_h3 &
 
 h1 to h3 (clients):
 
-h1 iperf -c 10.1.1.4 -p 5001 -u -b 1M &
-h2 iperf -c 10.1.1.4 -p 5002 -u -b 1M &
-h3 iperf -c 10.1.1.4 -p 5003 -u -b 1M &
+h1 iperf -c 10.0.0.4 -p 5001 -u -b 1M &
+h2 iperf -c 10.0.0.4 -p 5002 -u -b 1M &
+h3 iperf -c 10.0.0.4 -p 5003 -u -b 1M &
 
 
 
 TODO: 
-  Configurar tudo;
-  Fazer as queries de QoS usando os Apps;
-  Testar os QoS's usando o Iperf e redirecionar as saídas;
+  Configurar tudo; --ovsk
+  Fazer as queries de QoS usando os Apps; --ok
+  Testar os QoS's usando o Iperf e redirecionar as saídas; --ok 
   Tentar fazer um bash script pro inicial (antes do mininet);
   Tentar usar o prompt do mininet pra iniciar outros servers;
     
     * Lembrar de mudar as portas do Switch (eth1-s1, etc)
+
+    Criar o QoS na porta s1-eth4 e especificar por porta (5001/5003) o QoS de acordo com a Query criada
+    

@@ -1,0 +1,59 @@
+=-=-=-=--=  1:
+{
+  "port_name": "s1-eth3", //opc
+  "type": "linux-htb",
+  "max_rate": "1000000",
+  "queues": [
+    {
+      "max_rate": "300000",
+      "min_rate": "200000"
+    }
+  ]
+}
+=-=-=-=--= 2:
+{
+  "port_name": "s1-eth2", //opc
+  "type": "linux-htb",
+  "max_rate": "1000000",
+  "queues": [
+    {
+      "max_rate": "200000",
+      "min_rate": "100000"
+    }
+  ]
+}
+=-=-=-=--=  3:
+{
+  "port_name": "s1-eth1", //opc
+  "type": "linux-htb",
+  "max_rate": "1000000",
+  "queues": [
+    {
+      "max_rate": "10000",
+      "min_rate": "2000"
+    }
+  ]
+}
+
+TODO: Tirar o -b 1M e escolher um de tmepo no iperf
+
+
+{
+  "port_name": "s1-eth4", //opc
+  "type": "linux-htb",
+  "max_rate": "1000000",
+  "queues": [
+    {
+      "max_rate": "10000",
+      "min_rate": "00000"
+    },
+    {
+      "max_rate": "20000",
+      "min_rate": "10000"
+    },
+    {
+      "max_rate": "30000",
+      "min_rate": "20000"
+    }
+  ]
+}
