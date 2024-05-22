@@ -28,10 +28,10 @@ def customTopology():
     # Criação dos links
     # loss em %
     # bw em Mbps
-    net.addLink(h1, s1, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
-    net.addLink(h2, s1, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
-    net.addLink(h3, s1, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
-    link4=net.addLink(h4, s1, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
+    net.addLink(h1, s1)#, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
+    net.addLink(h2, s1)#, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
+    net.addLink(h3, s1)#, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
+    link4=net.addLink(h4, s1)#, cls=TCLink, bw=10, delay='150ms', loss=1)#, jitter='30ms')
 
 
     #tentando implementar bw no link 

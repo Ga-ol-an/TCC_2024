@@ -1,0 +1,48 @@
+1 - Adiciona o QoS por porta e testa de h1 pra h4 --OK
+  1.1 Cria um script pra deixar isso fácil --OK
+2 - Vê se o QoS funciona bem --> Funciona --OK
+
+
+3 - Testa diferentes configs da topologia e ver se se é possivel colocar o atraso, perda e jitter
+  3.1 - Adiciona somente um dos parametros (loss, latencia, etc)
+  3.2 - Adiciona pela função TC nos hosts
+  3.3 - Adicionar parâmetros em 3 links, mas não no link cuja Queue será aplicada
+
+
+
+Coisas que notei:
+Ao criar a queue, a queue número 0 já é aplicada em todos os tráfegos, automaticamente
+
+Se as somas dos mínimos no QoS for maior que o MAX_RATE da queue, valor máximo da queue é ultrapassado
+
+Se eu uso somente um host, noto que consigo adicionar atraso, perda e jitter, porém em links diferente do que eu adicionei a minha queue
+  Noto que se eu não limito a BW até o switch, eu tenho muita perda, dado que 30MB são enviados ao switch, mas somente 10MB serão enviados ao h4
+  Se eu limito o BW pelo link, a perda aumenta ainda mais e o QoS não funciona, mesmo que em links diferentes
+
+Ao que parece, se eu adiciono QoS em um link, através da Queue e eu adiciono atraso e outros parâmetros em outro link, os dois param de comunicar entre si
+
+Se eu não limito a BW de S1-SW, eu recebo 30MB de banda, por ser 3 tráfegos. 
+  Dessa forma, o switch precisa de fazer haver perdas, dado que ele irá priorizar um tráfego e de 30MB, somente 10MB serão enviados ao h4.
+  Se eu limito a BW de S1-SW, eu crio o QoS lá e o meu switch já recebe as coisas 'prnontas'
+
+O que não consigo explicar é o pq isso só acontece se eu adiciono perda, o que me leva ao escrito acima
+  Talvez isso aconteça por conta da perda de comunicação entre os links
+
+
+  Fazer a partir de agora:
+
+Desconsiderar perda e atraso
+
+
+Fazer o seguinte teste:
+
+Atualizar o TCC pra um vídeo melhor que 720p
+
+Fazer algum script pra todar tudo e iniciar os tráfego junto.
+
+Rodar sem QoS -> Anotar os resultados de tal cenário
+Adicionar um QoS final -> Anotar os resultados em tal cenário
+
+Escrever o capítulo de resultados e focar nas coisas que serão mantidas mesmo com a nova config
+
+usar iperf3 como teste

@@ -1,3 +1,17 @@
 I'm currently following the link:
   https://osrg.github.io/ryu-book/en/html/rest_qos.html
 
+How to run everything:
+
+Terminal 1:
+sudo python3 topologia.py
+
+Terminal 2:
+ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch
+
+Terminal 3:
+./qos_script.sh 
+
+Depois, volte no terminal 1, com o mininet e rode: 
+mininet> source ./h4_init_servers.sh
+mininet> source ./clients.sh

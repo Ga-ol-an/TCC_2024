@@ -1,3 +1,7 @@
+#Se eu não usar a topologia.py, rodar os comandos:
+s1 xterm -e "ovs-vsctl set Bridge s1 protocols=OpenFlow13"
+s1 ovs-vsctl set-manager ptcp:6632
+
 #Testa o QoS:
 
 #h4 - Sem QoS:
@@ -17,3 +21,8 @@ h4 iperf -s -u -i 1 -p 5003 > outputs/h4_server_h3 &
 h1 iperf -c 10.0.0.4 -p 5001 -u -b 10M -t 30 &
 h2 iperf -c 10.0.0.4 -p 5002 -u -b 10M -t 30 &
 h3 iperf -c 10.0.0.4 -p 5003 -u -b 10M -t 30 &
+
+pra rodar o arquivo, use o comando source do mininet. 
+Ex:
+#mininet> source ./h4_servers.sh
+#mininet> source ./clients.sh
