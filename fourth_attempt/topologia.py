@@ -35,7 +35,7 @@ def customTopology():
 
 
     #tentando implementar bw no link 
-    link4.intf1.config( loss=1, bw=10, delay='150ms')
+    # link4.intf1.config( loss=1, bw=10, delay='150ms')
 
     # Inicialização e configuração da rede
     net.start()

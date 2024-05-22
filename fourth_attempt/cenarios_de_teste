@@ -1,0 +1,9 @@
+1 - Inicio concomitante 
+  Com e sem QoS
+
+2 - Dois tráficos (video e musica) já existem e tenta-se se usar o terceiro de static
+  Com e Sem QoS
+
+
+**PS:
+  Adicionar no TCC o pq dos testes serem feito somente usadnod o UDP

@@ -16,5 +16,5 @@ Pra teste sem QoS
   ./no_qos_script.sh
 
 Depois, volte no terminal 1, com o mininet e rode: 
-mininet> source ./h4_init_servers.sh
+mininet> source ./h4_servers.sh
 mininet> source ./clients.sh
