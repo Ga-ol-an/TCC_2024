@@ -1,0 +1,5 @@
+# Run this on the place that the files are located
+grep -oP '\d+(?:\.\d+)?\s*[GMK]?bits/sec' h4_server_h1
+
+grep -oP '\d+(?:\.\d+)?(?=\s*[GMK]?bits/sec)' h4_server_h1 | xclip -selection clipboard
+

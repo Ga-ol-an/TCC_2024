@@ -1,0 +1,5 @@
+o qos somente à porta eth2 do s2 e tive o QoS normal, igual era para o S1. 
+
+Vou testar o que acontece caso eu adicione mais 1 switch, 
+    de forma que o switch 1 e 2 tenha 2 hosts cada e
+    se conectem no switch 3 com o server
