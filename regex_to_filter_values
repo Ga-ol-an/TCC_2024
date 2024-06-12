@@ -1,0 +1,14 @@
+#! Filter Values of BW
+
+# Run this on the place that the files are located
+# Change the filename according to the desired file.
+
+grep -oP '\d+(?:\.\d+)?\s*[GMK]?bits/sec' h4_server_h1
+
+# The command below copies the filtered content to the clipboard.
+
+grep -oP '\d+(?:\.\d+)?(?=\s*[GMK]?bits/sec)' h4_server_h1 | xclip -selection clipboard
+
+# Filter Values of Latency and copies to clipboard
+
+grep -oP '%\)\s*\K[0-9]*\.[0-9]*' h4_server_h1 | xclip -selection clipboard
