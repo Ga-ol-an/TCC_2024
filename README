@@ -1,61 +1,58 @@
-# EN
-At first, make sure you have the outputs and sub folders created. If you dont have, run the following script, for Linux Ubuntu:
-  ./create_outputs_folder.sh
 
-To run the system, you will need 3 terminals.
+#  Undergraduate Thesis - Gabriel de Oliveira Andrade
 
-Terminal 1:
-  sudo python3 topologia.py
+## This work as done as the final project of Electric Engeneering course, at the Federal University of Minas Gerais. 
 
-Terminal 2:
-  ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch
+### Advisor: Prof. Luciano de Errico
 
-Terminal 3:
-Testing with QoS:
-  ./qos_script.sh 
+### Steps to reproduce the work:
+
+At  first,  make  sure  you  have  the  outputs  and  sub  folders  created.  If  you  dont  have,  run  the  following  script,  for  Linux  Ubuntu:
+
+```
+> ./create_outputs_folder.sh
+```
   
-At the end, go to the Terminal 1 and run the desired test. With one or more o
-Testing without QoS:
-  ./no_qos_script.sh
 
-At the end, go to the Terminal 1 and run the desired test. With one or more of the following options:
-mininet> source ./real_scen.sh
-mininet> source ./var_scen.sh
-mininet> source ./stab_scen.sh
-mininet> source ./realist_latency_evaluation.sh
-mininet> source ./stable_latency_evaluation.sh
+To  run  the  system,  you  will  need  3  terminals. Keep the three terminals opened and run the following commands:
 
-At the end of the tests, the desired outputs were stored in the "results" folder.
 
-Part of this work was based on the tutorial on the following link: https://osrg.github.io/ryu-book/en/html/rest_qos.html
+#### Terminal  1:
+```
+> sudo  python3  topologia.py
+```
+  
 
-# PT_BR
+#### Terminal  2:
 
-Primeiro, certifique-se de que você possui as saídas e subpastas criadas. Se não tiver, execute o seguinte script, para Linux Ubuntu:
-./create_outputs_folder.sh
+```
+> ryu-manager  ryu.app.rest_qos  qos_simple_switch_13.py  ryu.app.rest_conf_switch
+```
+  
 
-Para executar o sistema, você precisará de 3 terminais.
+#### Terminal  3:
 
-Terminal 1:
-sudo python3 topologia.py
+\# Testing  with  QoS:
+```
+> ./qos_script.sh
+```
 
-Terminal 2:
-ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch
+\# Testing  without  QoS:
+```
+> ./no_qos_script.sh
+  ```
 
-Terminal 3:
-Testando com QoS:
-./qos_script.sh
+Then go  to  the  Terminal  1  and  run  the  desired  test, on the mininet CLI.  You can choose  one  or  more  of  the  following  options:
+```
+mininet> source  ./real_scen.sh
+mininet> source  ./var_scen.sh
+mininet> source  ./stab_scen.sh
+mininet> source  ./realist_latency_evaluation.sh
+mininet> source  ./stable_latency_evaluation.sh
+```
 
-Testando sem QoS:
-./no_qos_script.sh
+  
+At  the  end  of  the  tests,  the  desired  outputs  will be  stored  in  the  "outputs"  folder, on the specified subfolder.
 
-No final, vá para o Terminal 1 e execute o teste desejado com uma ou mais das seguintes opções:
-mininet> source ./real_scen.sh
-mininet> source ./var_scen.sh
-mininet> source ./stab_scen.sh
-mininet> source ./realist_latency_evaluation.sh
-mininet> source ./stable_latency_evaluation.sh
-
-No final dos testes, as saídas desejadas foram armazenadas na pasta "results".
-
-Parte deste trabalho foi baseada no tutorial disponível no seguinte link: https://osrg.github.io/ryu-book/en/html/rest_qos.html
+  
+Part  of  this  work  was  based  on  the  tutorial  on  the  following  link:  https://osrg.github.io/ryu-book/en/html/rest_qos.html
