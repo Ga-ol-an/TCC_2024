@@ -1,4 +1,7 @@
 # EN
+At first, make sure you have the outputs and sub folders created. If you dont have, run the following script, for Linux Ubuntu:
+  ./create_outputs_folder.sh
+
 To run the system, you will need 3 terminals.
 
 Terminal 1:
@@ -11,6 +14,7 @@ Terminal 3:
 Testing with QoS:
   ./qos_script.sh 
   
+At the end, go to the Terminal 1 and run the desired test. With one or more o
 Testing without QoS:
   ./no_qos_script.sh
 
@@ -26,6 +30,10 @@ At the end of the tests, the desired outputs were stored in the "results" folder
 Part of this work was based on the tutorial on the following link: https://osrg.github.io/ryu-book/en/html/rest_qos.html
 
 # PT_BR
+
+Primeiro, certifique-se de que você possui as saídas e subpastas criadas. Se não tiver, execute o seguinte script, para Linux Ubuntu:
+./create_outputs_folder.sh
+
 Para executar o sistema, você precisará de 3 terminais.
 
 Terminal 1:
