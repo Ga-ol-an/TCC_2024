@@ -1,5 +1,5 @@
 
-# Trabalho de Conclusão Final - Gabriel de Oliveira Andrade
+# Trabalho de Conclusão Final - Gabriel de Oliveira Andrade - 2024
 
 ## Este trabalho foi realizado como o Trabalho de Conclusão Final do curso de Engenharia Elétrica, na Universidade Federal de Minas Gerais.
 

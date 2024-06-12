@@ -1,5 +1,5 @@
 
-#  Undergraduate Thesis - Gabriel de Oliveira Andrade
+#  Undergraduate Thesis - Gabriel de Oliveira Andrade - 2024
 
 ## This work as done as the final project of Electric Engeneering course, at the Federal University of Minas Gerais. 
 
