@@ -1,7 +1,32 @@
-I'm currently following the link:
-  https://osrg.github.io/ryu-book/en/html/rest_qos.html
+# EN
+To run the system, you will need 3 terminals.
 
-How to run everything:
+Terminal 1:
+  sudo python3 topologia.py
+
+Terminal 2:
+  ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch
+
+Terminal 3:
+Testing with QoS:
+  ./qos_script.sh 
+  
+Testing without QoS:
+  ./no_qos_script.sh
+
+At the end, go to the Terminal 1 and run the desired test. With one or more of the following options:
+mininet> source ./real_schen.sh
+mininet> source ./var_schen.sh
+mininet> source ./stab_schen.sh
+mininet> source ./realist_latency_evaluation.sh
+mininet> source ./stable_latency_evaluation.sh
+
+At the end of the tests, the desired outputs were stored in the "results" folder.
+
+Part of this work was based on the tutorial on the following link: https://osrg.github.io/ryu-book/en/html/rest_qos.html
+
+# PT_BR
+Para executar o sistema, você precisará de 3 terminais.
 
 Terminal 1:
 sudo python3 topologia.py
@@ -10,11 +35,19 @@ Terminal 2:
 ryu-manager ryu.app.rest_qos qos_simple_switch_13.py ryu.app.rest_conf_switch
 
 Terminal 3:
-Pra testes com QoS
-  ./qos_script.sh 
-Pra teste sem QoS
-  ./no_qos_script.sh
+Testando com QoS:
+./qos_script.sh
 
-Depois, volte no terminal 1, com o mininet e rode: 
-mininet> source ./h4_servers.sh
-mininet> source ./clients.sh
+Testando sem QoS:
+./no_qos_script.sh
+
+No final, vá para o Terminal 1 e execute o teste desejado com uma ou mais das seguintes opções:
+mininet> source ./real_schen.sh
+mininet> source ./var_schen.sh
+mininet> source ./stab_schen.sh
+mininet> source ./realist_latency_evaluation.sh
+mininet> source ./stable_latency_evaluation.sh
+
+No final dos testes, as saídas desejadas foram armazenadas na pasta "results".
+
+Parte deste trabalho foi baseada no tutorial disponível no seguinte link: https://osrg.github.io/ryu-book/en/html/rest_qos.html
