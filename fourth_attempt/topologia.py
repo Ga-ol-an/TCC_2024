@@ -10,8 +10,6 @@ def customTopology():
 
     # Criação da rede, especificando o uso do controle remoto e do switch Open vSwitch Kernel
     net = Mininet(controller=RemoteController, switch=OVSKernelSwitch, link=TCLink)
-
-
     
     # Adiciona o controlador RYU
     c0 = net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6633)
@@ -48,18 +46,6 @@ def customTopology():
     s1.cmd('ovs-vsctl set-manager ptcp:6632')
     s1.cmd('xterm -e "ovs-vsctl set Bridge s1 protocols=OpenFlow13"')
     
-    #h4:
-    # h4.cmd('iperf -s -u -i 1 -p 5001 > outputs/h4_server_h1 &')
-    # h4.cmd('iperf -s -u -i 1 -p 5002 > outputs/h4_server_h2 &')
-    # h4.cmd('iperf -s -u -i 1 -p 5003 > outputs/h4_server_h3 &')
-
-
-    #h1 to h3 (clients):
-
-    # h1.cmd('iperf -c 10.1.1.4 -p 5001 -u -b 1M &')
-    # h2.cmd('iperf -c 10.1.1.4 -p 5002 -u -b 1M &')
-    # h3.cmd('iperf -c 10.1.1.4 -p 5003 -u -b 1M &')
-
     # Abre a interface CLI do Mininet para interação
     CLI(net)
 

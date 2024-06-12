@@ -19,4 +19,3 @@ px time.sleep(15)
 h3 iperf -c 10.0.0.4 -p 5003 -u -b 10M -t 35 -e &
 px time.sleep(10)
 h1 iperf -c 10.0.0.4 -p 5001 -u -b 10M -t 20 -e &
-
